@@ -1,0 +1,116 @@
+{
+  "listId": "u1-l1",
+  "unitId": "unit-1",
+  "unitTitle": "Unit 1 A new start",
+  "listTitle": "单词表 1",
+  "words": [
+    {
+      "id": "u1-l1-001",
+      "word": "without",
+      "phonetic": "wɪˈðaʊt",
+      "chinese": "没有；缺乏；无"
+    },
+    {
+      "id": "u1-l1-002",
+      "word": "sentence",
+      "phonetic": "ˈsentəns",
+      "chinese": "句子"
+    },
+    {
+      "id": "u1-l1-003",
+      "word": "point out",
+      "phonetic": "pɔɪnt aʊt",
+      "chinese": "指出；指明"
+    },
+    {
+      "id": "u1-l1-004",
+      "word": "mistake",
+      "phonetic": "mɪˈsteɪk",
+      "chinese": "错误，失误"
+    },
+    {
+      "id": "u1-l1-005",
+      "word": "polite",
+      "phonetic": "pəˈlaɪt",
+      "chinese": "客气；有礼貌的"
+    },
+    {
+      "id": "u1-l1-006",
+      "word": "mind",
+      "phonetic": "maɪnd",
+      "chinese": "头脑；大脑；心智"
+    },
+    {
+      "id": "u1-l1-007",
+      "word": "hers",
+      "phonetic": "hɜːz",
+      "chinese": "她的"
+    },
+    {
+      "id": "u1-l1-008",
+      "word": "dry",
+      "phonetic": "draɪ",
+      "chinese": "干的；干燥的"
+    },
+    {
+      "id": "u1-l1-009",
+      "word": "meaning",
+      "phonetic": "ˈmiːnɪŋ",
+      "chinese": "意义；意思"
+    },
+    {
+      "id": "u1-l1-010",
+      "word": "fact",
+      "phonetic": "fækt",
+      "chinese": "事实；真相"
+    },
+    {
+      "id": "u1-l1-011",
+      "word": "in fact",
+      "phonetic": "ɪn fækt",
+      "chinese": "实际上；事实上"
+    },
+    {
+      "id": "u1-l1-012",
+      "word": "need",
+      "phonetic": "niːd",
+      "chinese": "需要"
+    },
+    {
+      "id": "u1-l1-013",
+      "word": "remember",
+      "phonetic": "rɪˈmembə(r)",
+      "chinese": "记得；记起"
+    },
+    {
+      "id": "u1-l1-014",
+      "word": "really",
+      "phonetic": "ˈriːəli",
+      "chinese": "确实；的确"
+    },
+    {
+      "id": "u1-l1-015",
+      "word": "important",
+      "phonetic": "ɪmˈpɔːt(ə)nt",
+      "chinese": "重要的"
+    },
+    {
+      "id": "u1-l1-016",
+      "word": "plan",
+      "phonetic": "plæn",
+      "chinese": "计划，打算"
+    },
+    {
+      "id": "u1-l1-017",
+      "word": "problem",
+      "phonetic": "ˈprɒbləm",
+      "chinese": "问题；难题"
+    },
+    {
+      "id": "u1-l1-018",
+      "word": "homework",
+      "phonetic": "ˈhəʊmwɜːk",
+      "chinese": "作业，家庭作业"
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+:root {
+    --bg: #1b1e24;
+    --panel: #252a33;
+    --text: #f2efe8;
+    --muted: #a8b0bd;
+    --accent: #d4a24c;
+    --light: #f0d9b5;
+    --dark: #b58863;
+    --last: rgba(246, 224, 96, 0.55);
+    --select: rgba(90, 160, 90, 0.55);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.app {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 16px 32px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.nav-link {
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+    margin-top: 8px;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 650;
+}
+
+.subtitle {
+    margin: 6px 0 20px;
+    color: var(--muted);
+}
+
+.layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.board-panel {
+    flex: 0 0 auto;
+}
+
+.board {
+    width: min(72vw, 560px);
+    height: min(72vw, 560px);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    user-select: none;
+}
+
+.sq {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(min(72vw, 560px) / 9);
+    cursor: pointer;
+}
+
+.sq.light { background: var(--light); }
+.sq.dark { background: var(--dark); }
+.sq.last { box-shadow: inset 0 0 0 200px var(--last); }
+.sq.selected { box-shadow: inset 0 0 0 200px var(--select); }
+.sq.check { box-shadow: inset 0 0 0 4px #c0392b; }
+
+.piece-w {
+    filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.35));
+}
+
+.piece-b {
+    filter: drop-shadow(0 0 3px rgba(210, 200, 180, 0.55)) drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.4));
+}
+
+.dot {
+    width: 22%;
+    height: 22%;
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.28);
+    pointer-events: none;
+}
+
+.capture-ring {
+    position: absolute;
+    inset: 8%;
+    border: 4px solid rgba(20, 20, 20, 0.28);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+button {
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid #3b4250;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+button:hover {
+    border-color: var(--accent);
+}
+
+.status {
+    margin: 12px 0 0;
+    color: var(--accent);
+    min-height: 1.4em;
+}
+
+.moves-panel {
+    flex: 1 1 280px;
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 16px 18px;
+    min-height: min(72vw, 560px);
+    max-height: 640px;
+    overflow: auto;
+}
+
+.moves-panel h2 {
+    margin: 0 0 12px;
+    font-size: 1.1rem;
+}
+
+.moves {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.98rem;
+}
+
+.moves li {
+    display: grid;
+    grid-template-columns: 2.4em 1fr 1fr;
+    gap: 8px;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+.moves li:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.moves .num {
+    color: var(--muted);
+}
+
+.moves .current {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-card {
+    background: var(--panel);
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 260px;
+}
+
+.promo-choices {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.promo-choices button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    padding: 6px;
+}
+
+.promo-choices button img {
+    width: 44px;
+    height: 44px;
+}
+
+@media (max-width: 860px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .moves-panel {
+        width: 100%;
+        min-height: 220px;
+    }
+}

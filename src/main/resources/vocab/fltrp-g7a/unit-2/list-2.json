@@ -1,0 +1,146 @@
+{
+  "listId": "u2-l2",
+  "unitId": "unit-2",
+  "unitTitle": "Unit 2 More than fun",
+  "listTitle": "单词表 2",
+  "words": [
+    {
+      "id": "u2-l2-001",
+      "word": "paper-cutting",
+      "phonetic": "ˈpeɪpə ˈkʌtɪŋ",
+      "chinese": "剪纸；剪纸艺术"
+    },
+    {
+      "id": "u2-l2-002",
+      "word": "hold",
+      "phonetic": "həʊld",
+      "chinese": "抓住；举行"
+    },
+    {
+      "id": "u2-l2-003",
+      "word": "ground",
+      "phonetic": "ɡraʊnd",
+      "chinese": "地；地面"
+    },
+    {
+      "id": "u2-l2-004",
+      "word": "weak",
+      "phonetic": "wiːk",
+      "chinese": "虚弱的；无力的"
+    },
+    {
+      "id": "u2-l2-005",
+      "word": "high",
+      "phonetic": "haɪ",
+      "chinese": "高的"
+    },
+    {
+      "id": "u2-l2-006",
+      "word": "nature",
+      "phonetic": "ˈneɪtʃə(r)",
+      "chinese": "自然界；大自然"
+    },
+    {
+      "id": "u2-l2-007",
+      "word": "adventure",
+      "phonetic": "ədˈventʃə",
+      "chinese": "冒险；冒险经历"
+    },
+    {
+      "id": "u2-l2-008",
+      "word": "awake",
+      "phonetic": "əˈweɪk",
+      "chinese": "醒着的；醒来"
+    },
+    {
+      "id": "u2-l2-009",
+      "word": "midnight",
+      "phonetic": "ˈmɪdnaɪt",
+      "chinese": "子夜，午夜"
+    },
+    {
+      "id": "u2-l2-010",
+      "word": "appear",
+      "phonetic": "əˈpɪə(r)",
+      "chinese": "出现；似乎"
+    },
+    {
+      "id": "u2-l2-011",
+      "word": "heart",
+      "phonetic": "hɑːt",
+      "chinese": "心；心脏"
+    },
+    {
+      "id": "u2-l2-012",
+      "word": "almost",
+      "phonetic": "ˈɔːlməʊst",
+      "chinese": "几乎，差不多"
+    },
+    {
+      "id": "u2-l2-013",
+      "word": "tap",
+      "phonetic": "tæp",
+      "chinese": "轻拍，轻敲"
+    },
+    {
+      "id": "u2-l2-014",
+      "word": "shake",
+      "phonetic": "ʃeɪk",
+      "chinese": "握手；摇动"
+    },
+    {
+      "id": "u2-l2-015",
+      "word": "classmate",
+      "phonetic": "ˈklɑːsmeɪt",
+      "chinese": "同班同学"
+    },
+    {
+      "id": "u2-l2-016",
+      "word": "lonely",
+      "phonetic": "ˈləʊnli",
+      "chinese": "孤独的；寂寞的"
+    },
+    {
+      "id": "u2-l2-017",
+      "word": "magic",
+      "phonetic": "ˈmædʒɪk",
+      "chinese": "有魔力的；魔法"
+    },
+    {
+      "id": "u2-l2-018",
+      "word": "joy",
+      "phonetic": "dʒɔɪ",
+      "chinese": "愉快；欢乐"
+    },
+    {
+      "id": "u2-l2-019",
+      "word": "notebook",
+      "phonetic": "ˈnəʊtbʊk",
+      "chinese": "笔记本"
+    },
+    {
+      "id": "u2-l2-020",
+      "word": "shelf",
+      "phonetic": "ʃelf",
+      "chinese": "架子，搁板"
+    },
+    {
+      "id": "u2-l2-021",
+      "word": "leave",
+      "phonetic": "liːv",
+      "chinese": "离开；剩下"
+    },
+    {
+      "id": "u2-l2-022",
+      "word": "page",
+      "phonetic": "peɪdʒ",
+      "chinese": "页，页码"
+    },
+    {
+      "id": "u2-l2-023",
+      "word": "ending",
+      "phonetic": "ˈendɪŋ",
+      "chinese": "结尾；结局"
+    }
+  ]
+}

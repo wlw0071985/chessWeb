@@ -1,0 +1,140 @@
+{
+  "listId": "u6-l2",
+  "unitId": "unit-6",
+  "unitTitle": "Unit 6 Fantastic friends",
+  "listTitle": "单词表 2",
+  "words": [
+    {
+      "id": "u6-l2-001",
+      "word": "hero",
+      "phonetic": "ˈhɪərəʊ",
+      "chinese": "英雄；男主角"
+    },
+    {
+      "id": "u6-l2-002",
+      "word": "rescue",
+      "phonetic": "ˈreskjuː",
+      "chinese": "营救，救援"
+    },
+    {
+      "id": "u6-l2-003",
+      "word": "earthquake",
+      "phonetic": "ˈɜːθkweɪk",
+      "chinese": "地震"
+    },
+    {
+      "id": "u6-l2-004",
+      "word": "missing",
+      "phonetic": "ˈmɪsɪŋ",
+      "chinese": "失踪的；遗漏的"
+    },
+    {
+      "id": "u6-l2-005",
+      "word": "save",
+      "phonetic": "seɪv",
+      "chinese": "救，救助"
+    },
+    {
+      "id": "u6-l2-006",
+      "word": "dead",
+      "phonetic": "ded",
+      "chinese": "死的"
+    },
+    {
+      "id": "u6-l2-007",
+      "word": "dodo",
+      "phonetic": "ˈdəʊdəʊ",
+      "chinese": "渡渡鸟"
+    },
+    {
+      "id": "u6-l2-008",
+      "word": "as dead as a dodo",
+      "phonetic": "æz ded æz ə ˈdəʊdəʊ",
+      "chinese": "彻底死亡"
+    },
+    {
+      "id": "u6-l2-009",
+      "word": "character",
+      "phonetic": "ˈkærəktə",
+      "chinese": "人物；角色"
+    },
+    {
+      "id": "u6-l2-010",
+      "word": "museum",
+      "phonetic": "mjuˈziːəm",
+      "chinese": "博物馆"
+    },
+    {
+      "id": "u6-l2-011",
+      "word": "island",
+      "phonetic": "ˈaɪlənd",
+      "chinese": "岛"
+    },
+    {
+      "id": "u6-l2-012",
+      "word": "ocean",
+      "phonetic": "ˈəʊʃ(ə)n",
+      "chinese": "海洋"
+    },
+    {
+      "id": "u6-l2-013",
+      "word": "plenty",
+      "phonetic": "ˈplenti",
+      "chinese": "大量；充足"
+    },
+    {
+      "id": "u6-l2-014",
+      "word": "friendly",
+      "phonetic": "ˈfrendli",
+      "chinese": "友好的"
+    },
+    {
+      "id": "u6-l2-015",
+      "word": "peaceful",
+      "phonetic": "ˈpiːsf(ə)l",
+      "chinese": "和平的；安宁的"
+    },
+    {
+      "id": "u6-l2-016",
+      "word": "arrive",
+      "phonetic": "əˈraɪv",
+      "chinese": "到达"
+    },
+    {
+      "id": "u6-l2-017",
+      "word": "forest",
+      "phonetic": "ˈfɒrɪst",
+      "chinese": "森林"
+    },
+    {
+      "id": "u6-l2-018",
+      "word": "hunt",
+      "phonetic": "hʌnt",
+      "chinese": "打猎；搜寻"
+    },
+    {
+      "id": "u6-l2-019",
+      "word": "die out",
+      "phonetic": "daɪ aʊt",
+      "chinese": "灭绝；消失"
+    },
+    {
+      "id": "u6-l2-020",
+      "word": "full",
+      "phonetic": "fʊl",
+      "chinese": "满的；饱的"
+    },
+    {
+      "id": "u6-l2-021",
+      "word": "fantastic",
+      "phonetic": "fænˈtæstɪk",
+      "chinese": "极好的；了不起的"
+    },
+    {
+      "id": "u6-l2-022",
+      "word": "as happy as a clam",
+      "phonetic": "æz ˈhæpi æz ə klæm",
+      "chinese": "非常高兴的"
+    }
+  ]
+}

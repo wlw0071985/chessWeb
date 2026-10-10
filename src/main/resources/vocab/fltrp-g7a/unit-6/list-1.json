@@ -1,0 +1,146 @@
+{
+  "listId": "u6-l1",
+  "unitId": "unit-6",
+  "unitTitle": "Unit 6 Fantastic friends",
+  "listTitle": "单词表 1",
+  "words": [
+    {
+      "id": "u6-l1-001",
+      "word": "pigeon",
+      "phonetic": "ˈpɪdʒɪn",
+      "chinese": "鸽子"
+    },
+    {
+      "id": "u6-l1-002",
+      "word": "surprise",
+      "phonetic": "səˈpraɪz",
+      "chinese": "惊喜；惊奇"
+    },
+    {
+      "id": "u6-l1-003",
+      "word": "knock around",
+      "phonetic": "nɒk əˈraʊnd",
+      "chinese": "闲逛，漫游"
+    },
+    {
+      "id": "u6-l1-004",
+      "word": "droppings",
+      "phonetic": "ˈdrɒpɪŋz",
+      "chinese": "（兽或鸟的）粪"
+    },
+    {
+      "id": "u6-l1-005",
+      "word": "boring",
+      "phonetic": "ˈbɔːrɪŋ",
+      "chinese": "没趣的，令人厌倦的"
+    },
+    {
+      "id": "u6-l1-006",
+      "word": "feed",
+      "phonetic": "fiːd",
+      "chinese": "喂养"
+    },
+    {
+      "id": "u6-l1-007",
+      "word": "madly",
+      "phonetic": "ˈmædli",
+      "chinese": "疯狂地"
+    },
+    {
+      "id": "u6-l1-008",
+      "word": "scary",
+      "phonetic": "ˈskeəri",
+      "chinese": "吓人的，可怕的"
+    },
+    {
+      "id": "u6-l1-009",
+      "word": "research",
+      "phonetic": "ˈriːsɜːtʃ",
+      "chinese": "调查；研究"
+    },
+    {
+      "id": "u6-l1-010",
+      "word": "recognise",
+      "phonetic": "ˈrekəɡnaɪz",
+      "chinese": "认出；辨认"
+    },
+    {
+      "id": "u6-l1-011",
+      "word": "themselves",
+      "phonetic": "ðəmˈselvz",
+      "chinese": "他们自己"
+    },
+    {
+      "id": "u6-l1-012",
+      "word": "mirror",
+      "phonetic": "ˈmɪrə",
+      "chinese": "镜子"
+    },
+    {
+      "id": "u6-l1-013",
+      "word": "itself",
+      "phonetic": "ɪtˈself",
+      "chinese": "它自己"
+    },
+    {
+      "id": "u6-l1-014",
+      "word": "maybe",
+      "phonetic": "ˈmeɪbi",
+      "chinese": "也许，大概"
+    },
+    {
+      "id": "u6-l1-015",
+      "word": "several",
+      "phonetic": "ˈsevrəl",
+      "chinese": "几个；一些"
+    },
+    {
+      "id": "u6-l1-016",
+      "word": "kilometre",
+      "phonetic": "kɪˈlɒmɪtə(r)",
+      "chinese": "千米，公里"
+    },
+    {
+      "id": "u6-l1-017",
+      "word": "get lost",
+      "phonetic": "ɡet lɒst",
+      "chinese": "迷路"
+    },
+    {
+      "id": "u6-l1-018",
+      "word": "speed",
+      "phonetic": "spiːd",
+      "chinese": "速度"
+    },
+    {
+      "id": "u6-l1-019",
+      "word": "amazing",
+      "phonetic": "əˈmeɪzɪŋ",
+      "chinese": "令人惊奇的"
+    },
+    {
+      "id": "u6-l1-020",
+      "word": "enough",
+      "phonetic": "ɪˈnʌf",
+      "chinese": "足够地"
+    },
+    {
+      "id": "u6-l1-021",
+      "word": "beaver",
+      "phonetic": "ˈbiːvə(r)",
+      "chinese": "海狸"
+    },
+    {
+      "id": "u6-l1-022",
+      "word": "wolf",
+      "phonetic": "wʊlf",
+      "chinese": "狼"
+    },
+    {
+      "id": "u6-l1-023",
+      "word": "engineer",
+      "phonetic": "ˌendʒɪˈnɪə",
+      "chinese": "工程师"
+    }
+  ]
+}
