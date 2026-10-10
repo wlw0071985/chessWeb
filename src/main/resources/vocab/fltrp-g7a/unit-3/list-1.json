@@ -1,0 +1,128 @@
+{
+  "listId": "u3-l1",
+  "unitId": "unit-3",
+  "unitTitle": "Unit 3 Family ties",
+  "listTitle": "单词表 1",
+  "words": [
+    {
+      "id": "u3-l1-001",
+      "word": "silent",
+      "phonetic": "ˈsaɪlənt",
+      "chinese": "不说话的；沉默的"
+    },
+    {
+      "id": "u3-l1-002",
+      "word": "along",
+      "phonetic": "əˈlɒŋ",
+      "chinese": "沿着，顺着"
+    },
+    {
+      "id": "u3-l1-003",
+      "word": "mountain",
+      "phonetic": "ˈmaʊntən",
+      "chinese": "山；山脉"
+    },
+    {
+      "id": "u3-l1-004",
+      "word": "road",
+      "phonetic": "rəʊd",
+      "chinese": "公路，道路"
+    },
+    {
+      "id": "u3-l1-005",
+      "word": "handsome",
+      "phonetic": "ˈhænsəm",
+      "chinese": "漂亮的，英俊的"
+    },
+    {
+      "id": "u3-l1-006",
+      "word": "strict",
+      "phonetic": "strɪkt",
+      "chinese": "要求严格的；严厉的"
+    },
+    {
+      "id": "u3-l1-007",
+      "word": "follow",
+      "phonetic": "ˈfɒləʊ",
+      "chinese": "跟着；遵守"
+    },
+    {
+      "id": "u3-l1-008",
+      "word": "postman",
+      "phonetic": "ˈpəʊstmən",
+      "chinese": "邮递员"
+    },
+    {
+      "id": "u3-l1-009",
+      "word": "touching",
+      "phonetic": "ˈtʌtʃɪŋ",
+      "chinese": "感人的；动人的"
+    },
+    {
+      "id": "u3-l1-010",
+      "word": "son",
+      "phonetic": "sʌn",
+      "chinese": "儿子"
+    },
+    {
+      "id": "u3-l1-011",
+      "word": "serve",
+      "phonetic": "sɜːv",
+      "chinese": "端上；服务"
+    },
+    {
+      "id": "u3-l1-012",
+      "word": "area",
+      "phonetic": "ˈeəriə",
+      "chinese": "地域；地区"
+    },
+    {
+      "id": "u3-l1-013",
+      "word": "absent",
+      "phonetic": "ˈæbsənt",
+      "chinese": "缺席的"
+    },
+    {
+      "id": "u3-l1-014",
+      "word": "seldom",
+      "phonetic": "ˈseldəm",
+      "chinese": "不常；很少"
+    },
+    {
+      "id": "u3-l1-015",
+      "word": "position",
+      "phonetic": "pəˈzɪʃ(ə)n",
+      "chinese": "职务；位置"
+    },
+    {
+      "id": "u3-l1-016",
+      "word": "carry",
+      "phonetic": "ˈkæri",
+      "chinese": "提；搬；拿"
+    },
+    {
+      "id": "u3-l1-017",
+      "word": "across",
+      "phonetic": "əˈkrɔːs",
+      "chinese": "横过，穿过"
+    },
+    {
+      "id": "u3-l1-018",
+      "word": "memory",
+      "phonetic": "ˈmeməri",
+      "chinese": "记忆力；回忆"
+    },
+    {
+      "id": "u3-l1-019",
+      "word": "tear",
+      "phonetic": "tɪə",
+      "chinese": "眼泪，泪水"
+    },
+    {
+      "id": "u3-l1-020",
+      "word": "growth",
+      "phonetic": "ɡrəʊθ",
+      "chinese": "成长；增长"
+    }
+  ]
+}

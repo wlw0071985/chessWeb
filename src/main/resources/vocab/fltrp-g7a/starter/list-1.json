@@ -1,0 +1,110 @@
+{
+  "listId": "st-l1",
+  "unitId": "starter",
+  "unitTitle": "Starter Welcome to junior high!",
+  "listTitle": "单词表 1",
+  "words": [
+    {
+      "id": "st-l1-001",
+      "word": "ready",
+      "phonetic": "ˈredi",
+      "chinese": "准备好，准备完毕"
+    },
+    {
+      "id": "st-l1-002",
+      "word": "textbook",
+      "phonetic": "ˈtekstbʊk",
+      "chinese": "教科书；课本"
+    },
+    {
+      "id": "st-l1-003",
+      "word": "eraser",
+      "phonetic": "ɪˈreɪzə(r)",
+      "chinese": "橡皮"
+    },
+    {
+      "id": "st-l1-004",
+      "word": "junior high",
+      "phonetic": "ˈdʒuːniə haɪ",
+      "chinese": "初中，初级中学"
+    },
+    {
+      "id": "st-l1-005",
+      "word": "geography",
+      "phonetic": "dʒiˈɒɡrəfi",
+      "chinese": "地理"
+    },
+    {
+      "id": "st-l1-006",
+      "word": "biology",
+      "phonetic": "baɪˈɒlədʒi",
+      "chinese": "生物学"
+    },
+    {
+      "id": "st-l1-007",
+      "word": "history",
+      "phonetic": "ˈhɪstri",
+      "chinese": "历史；历史学"
+    },
+    {
+      "id": "st-l1-008",
+      "word": "grey",
+      "phonetic": "ɡreɪ",
+      "chinese": "灰色；灰色的"
+    },
+    {
+      "id": "st-l1-009",
+      "word": "jacket",
+      "phonetic": "ˈdʒækɪt",
+      "chinese": "夹克衫；短上衣"
+    },
+    {
+      "id": "st-l1-010",
+      "word": "red scarf",
+      "phonetic": "red skɑːf",
+      "chinese": "红领巾"
+    },
+    {
+      "id": "st-l1-011",
+      "word": "T-shirt",
+      "phonetic": "ˈtiː ʃɜːt",
+      "chinese": "T恤衫；短袖圆领汗衫"
+    },
+    {
+      "id": "st-l1-012",
+      "word": "uniform",
+      "phonetic": "ˈjuːnɪfɔːm",
+      "chinese": "制服；校服"
+    },
+    {
+      "id": "st-l1-013",
+      "word": "school uniform",
+      "phonetic": "skuːl ˈjuːnɪfɔːm",
+      "chinese": "校服"
+    },
+    {
+      "id": "st-l1-014",
+      "word": "of course",
+      "phonetic": "əv kɔːs",
+      "chinese": "当然"
+    },
+    {
+      "id": "st-l1-015",
+      "word": "forget",
+      "phonetic": "fəˈɡet",
+      "chinese": "忘记；遗忘"
+    },
+    {
+      "id": "st-l1-016",
+      "word": "teaching building",
+      "phonetic": "ˈtiːtʃɪŋ ˈbɪldɪŋ",
+      "chinese": "教学楼"
+    },
+    {
+      "id": "st-l1-017",
+      "word": "dining hall",
+      "phonetic": "ˈdaɪnɪŋ hɔːl",
+      "chinese": "饭厅，餐厅；食堂"
+    }
+  ]
+}
