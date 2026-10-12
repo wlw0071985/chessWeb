@@ -9,6 +9,7 @@ public class ReviewWord {
     private String word;
     private String phonetic;
     private String chinese;
+    private String answer;
     private List<ExamplePair> examples = new ArrayList<ExamplePair>();
 
     public String getId() {
@@ -41,6 +42,14 @@ public class ReviewWord {
 
     public void setChinese(String chinese) {
         this.chinese = chinese;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public List<ExamplePair> getExamples() {

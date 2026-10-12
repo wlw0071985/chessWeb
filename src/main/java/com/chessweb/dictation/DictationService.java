@@ -1,5 +1,6 @@
 package com.chessweb.dictation;
 
+import com.chessweb.dictation.model.ExamplePair;
 import com.chessweb.dictation.model.ReviewWord;
 import com.chessweb.dictation.model.WordItem;
 import com.chessweb.dictation.model.WordList;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -82,16 +84,91 @@ public class DictationService {
     public List<ReviewWord> review(String clientId) {
         List<WordItem> practice = getPractice(clientId);
         List<ReviewWord> review = new ArrayList<ReviewWord>();
-        for (WordItem item : practice) {
+        for (int i = 0; i < practice.size(); i++) {
+            WordItem item = practice.get(i);
             ReviewWord row = new ReviewWord();
             row.setId(item.getId());
             row.setWord(item.getWord());
             row.setPhonetic(item.getPhonetic());
             row.setChinese(item.getChinese());
-            row.setExamples(exampleService.examplesFor(item));
+            row.setAnswer(loadAnswer(clientId, i));
             review.add(row);
         }
         return review;
+    }
+
+    public void saveAnswer(String clientId, int index, List<String> answers) {
+        requireClient(clientId);
+        String key = answerKey(clientId, index);
+        List<String> trimmed = new ArrayList<String>();
+        for (String a : answers) {
+            trimmed.add(a == null ? "" : a.trim());
+        }
+        try {
+            redis.opsForValue().set(key, objectMapper.writeValueAsString(trimmed),
+                    selectionTtlHours, TimeUnit.HOURS);
+        } catch (DictationException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DictationException("无法连接 Redis（127.0.0.1:6379），请确认本地 Redis 已启动");
+        }
+    }
+
+    public String loadAnswer(String clientId, int index) {
+        requireClient(clientId);
+        String key = answerKey(clientId, index);
+        try {
+            String json = redis.opsForValue().get(key);
+            if (json == null || json.isEmpty()) {
+                return "";
+            }
+            List<String> parts = objectMapper.readValue(json,
+                    new TypeReference<List<String>>() {});
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < parts.size(); i++) {
+                if (i > 0) sb.append(' ');
+                sb.append(parts.get(i));
+            }
+            return sb.toString();
+        } catch (DictationException e) {
+            throw e;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public List<ExamplePair> examplesForWord(String clientId, int index) {
+        List<WordItem> practice = getPractice(clientId);
+        if (index < 0 || index >= practice.size()) {
+            throw new DictationException("无效的单词索引");
+        }
+        return exampleService.examplesFor(practice.get(index));
+    }
+
+    /**
+     * 更新内存中 WordItem 的 phonetic 和 chinese 字段
+     */
+    public void updateWordItem(String id, String phonetic, String chinese) {
+        vocabLoader.updateWordItem(id, phonetic, chinese);
+    }
+
+    /**
+     * 根据 ID 查找 WordItem
+     */
+    public WordItem findWordById(String id) {
+        if (id == null || id.isEmpty()) {
+            return null;
+        }
+        for (WordList list : vocabLoader.getLists()) {
+            if (list.getWords() != null) {
+                for (WordItem item : list.getWords()) {
+                    if (id.equals(item.getId())) {
+                        return item;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     private void writeJson(String key, List<WordItem> words) {
@@ -132,5 +209,9 @@ public class DictationService {
 
     private static String practiceKey(String clientId) {
         return "dictation:practice:" + clientId.trim();
+    }
+
+    private static String answerKey(String clientId, int index) {
+        return "dictation:answer:" + clientId.trim() + ":" + index;
     }
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>初中英语单词听写</title>
-    <link rel="stylesheet" href="/css/dictation.css">
+    <link rel="stylesheet" href="/css/dictation.css?v=4">
 </head>
 <body>
 <div class="app">
@@ -45,6 +45,13 @@
                 <option value="5">5 秒</option>
             </select>
         </div>
+        <div id="input-area" class="input-area"></div>
+        <div class="hint-buttons">
+            <button type="button" id="btn-hint-phonetic" class="hint-btn">显示音标</button>
+            <button type="button" id="btn-hint-chinese" class="hint-btn">显示中文</button>
+        </div>
+        <p id="hint-phonetic" class="hint-content" style="display:none"></p>
+        <p id="hint-chinese" class="hint-content" style="display:none"></p>
         <p id="speak-status" class="hint"></p>
         <button type="button" id="btn-back-select" class="linkish">返回重新选词</button>
     </section>
@@ -54,10 +61,10 @@
             <h2>听写结果</h2>
             <button type="button" id="btn-new">再听一次</button>
         </div>
-        <p id="review-status" class="hint">正在加载例句…</p>
+        <p id="review-status" class="hint"></p>
         <div id="review-list"></div>
     </section>
 </div>
-<script src="/js/dictation.js"></script>
+<script src="/js/dictation.js?v=5"></script>
 </body>
 </html>

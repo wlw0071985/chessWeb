@@ -8,6 +8,12 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.parse
 import asyncio
 import edge_tts
+import edge_tts.communicate as cm
+from edge_tts.constants import TRUSTED_CLIENT_TOKEN
+
+# 修复微软端点迁移导致的 403 错误
+# 旧端点 speech.platform.bing.com 已逐步停用，切换到新端点 api.msedgeservices.com
+cm.WSS_URL = f"wss://api.msedgeservices.com/tts/cognitiveservices/websocket/v1?Ocp-Apim-Subscription-Key={TRUSTED_CLIENT_TOKEN}"
 
 VOICE = "en-US-AriaNeural"
 

@@ -239,6 +239,156 @@ public class ExampleService {
         }
     }
 
+    /**
+     * 通过 api.dictionaryapi.dev 获取单词或句子的音标
+     * 如果是句子，会拆分成单词逐个查询音标后拼接
+     */
+    public String fetchPhonetic(String word) {
+        if (word == null || word.trim().isEmpty()) {
+            return null;
+        }
+        
+        String input = word.trim();
+        
+        // 判断是否是句子（包含空格和多个单词）
+        if (input.contains(" ")) {
+            return fetchPhoneticForSentence(input);
+        }
+        
+        // 单个单词查询
+        return fetchPhoneticForSingleWord(input);
+    }
+    
+    /**
+     * 获取句子的音标：拆分成单词，逐个查询后拼接
+     */
+    private String fetchPhoneticForSentence(String sentence) {
+        String[] words = sentence.split("\\s+");
+        StringBuilder phoneticBuilder = new StringBuilder();
+        int successCount = 0; // 记录成功获取音标的单词数量
+        
+        for (int i = 0; i < words.length; i++) {
+            String w = words[i].replaceAll("[.,!?;:\"']", ""); // 去除标点
+            if (w.isEmpty()) {
+                continue;
+            }
+            
+            String phonetic = fetchPhoneticForSingleWord(w);
+            if (phonetic != null && !phonetic.isEmpty()) {
+                if (phoneticBuilder.length() > 0) {
+                    phoneticBuilder.append(" ");
+                }
+                // 统一音标格式：去除斜杠
+                String cleanPhonetic = phonetic.replaceAll("^/|/$", "");
+                phoneticBuilder.append(cleanPhonetic);
+                successCount++;
+                log.debug("Word '{}' phonetic: {}", w, cleanPhonetic);
+            } else {
+                // 如果某个单词无法获取音标，保留原单词
+                if (phoneticBuilder.length() > 0) {
+                    phoneticBuilder.append(" ");
+                }
+                phoneticBuilder.append(w);
+                log.debug("Word '{}' phonetic not found, using original", w);
+            }
+        }
+        
+        // 如果没有任何单词成功获取音标，返回 null
+        if (successCount == 0) {
+            log.warn("Failed to get phonetics for any word in sentence: {}", sentence);
+            return null;
+        }
+        
+        return phoneticBuilder.length() > 0 ? phoneticBuilder.toString() : null;
+    }
+    
+    /**
+     * 获取单个单词的音标（使用有道词典 API）
+     */
+    private String fetchPhoneticForSingleWord(String word) {
+        if (word == null || word.trim().isEmpty()) {
+            return null;
+        }
+        try {
+            URI uri = UriComponentsBuilder
+                    .fromHttpUrl("https://dict.youdao.com/jsonapi?q={word}")
+                    .buildAndExpand(word.trim())
+                    .encode()
+                    .toUri();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+            headers.set("Accept", "application/json");
+
+            RequestEntity<Void> request = new RequestEntity<>(headers, HttpMethod.GET, uri);
+            ResponseEntity<String> response = restTemplate.exchange(request, String.class);
+
+            if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
+                return null;
+            }
+            JsonNode root = objectMapper.readTree(response.getBody());
+            
+            // 按照路径获取音标：simple -> simple.word[0] -> usphone
+            
+            // 1. 尝试从 simple 获取
+            JsonNode simple = root.path("simple");
+            if (!simple.isMissingNode() && simple.isObject()) {
+                // 2. 从 simple.word 数组获取
+                JsonNode wordArray = simple.path("word");
+                if (!wordArray.isMissingNode() && wordArray.isArray() && wordArray.size() > 0) {
+                    JsonNode firstWord = wordArray.get(0);
+                    
+                    // 3. 从 word[0] 中获取 usphone
+                    JsonNode usphone = firstWord.path("usphone");
+                    if (!usphone.isMissingNode() && usphone.isTextual()) {
+                        String text = usphone.asText("").trim();
+                        if (!text.isEmpty()) {
+                            // 如果有分号，取最后一个部分
+                            if (text.contains(";")) {
+                                String[] parts = text.split(";");
+                                text = parts[parts.length - 1].trim();
+                            }
+                            return text.replaceAll("^/|/$", "");
+                        }
+                    }
+                    
+                    // 备选：尝试 ukphone
+                    JsonNode ukphone = firstWord.path("ukphone");
+                    if (!ukphone.isMissingNode() && ukphone.isTextual()) {
+                        String text = ukphone.asText("").trim();
+                        if (!text.isEmpty()) {
+                            // 如果有分号，取最后一个部分
+                            if (text.contains(";")) {
+                                String[] parts = text.split(";");
+                                text = parts[parts.length - 1].trim();
+                            }
+                            return text.replaceAll("^/|/$", "");
+                        }
+                    }
+                }
+            }
+            
+            return null;
+        } catch (Exception e) {
+            log.warn("fetch phonetic failed for '{}': {}", word, e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * 通过 MyMemory 翻译 API 获取单词的中文释义
+     */
+    public String fetchChineseMeaning(String word) {
+        if (word == null || word.trim().isEmpty()) {
+            return null;
+        }
+        String translated = translateToChinese(word.trim());
+        if (translated == null || translated.isEmpty() || "（暂无中文翻译）".equals(translated)) {
+            return null;
+        }
+        return translated;
+    }
+
     private static String normalize(String word) {
         return word == null ? "" : word.trim().toLowerCase(Locale.ROOT);
     }

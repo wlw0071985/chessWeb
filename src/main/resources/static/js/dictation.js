@@ -24,11 +24,17 @@
     var reviewList = document.getElementById("review-list");
     var reviewStatus = document.getElementById("review-status");
     var intervalSelect = document.getElementById("interval-select");
+    var inputArea = document.getElementById("input-area");
+    var btnHintPhonetic = document.getElementById("btn-hint-phonetic");
+    var btnHintChinese = document.getElementById("btn-hint-chinese");
+    var hintPhonetic = document.getElementById("hint-phonetic");
+    var hintChinese = document.getElementById("hint-chinese");
 
     var practiceWords = [];
     var index = 0;
     var speaking = false;
     var currentAudio = null;
+    var globalCompleting = false;
 
     function showError(message) {
         if (!message) {
@@ -83,12 +89,20 @@
             group.lists.forEach(function (list) {
                 var head = document.createElement("div");
                 head.className = "list-head";
+                var headLeft = document.createElement("div");
+                headLeft.style.display = "flex";
+                headLeft.style.alignItems = "center";
+                headLeft.style.gap = "10px";
                 var title = document.createElement("strong");
                 title.textContent = list.listTitle + "（" + list.words.length + "）";
                 var toggle = document.createElement("button");
                 toggle.type = "button";
                 toggle.textContent = "本表全选";
                 toggle.addEventListener("click", function () {
+                    if (globalCompleting) {
+                        showError("有单词正在补全中，请等待完成后再操作");
+                        return;
+                    }
                     var boxes = block.querySelectorAll('input[data-list="' + list.listId + '"]');
                     var allOn = true;
                     boxes.forEach(function (box) {
@@ -102,25 +116,95 @@
                     toggle.textContent = allOn ? "本表全选" : "取消本表";
                     btnStart.classList.add("hidden");
                 });
-                head.appendChild(title);
+                headLeft.appendChild(title);
+                head.appendChild(headLeft);
                 head.appendChild(toggle);
                 block.appendChild(head);
                 list.words.forEach(function (word) {
-                    var row = document.createElement("label");
+                    var row = document.createElement("div");
                     row.className = "word-row";
-                    row.innerHTML =
-                        '<input type="checkbox" data-id="' + word.id + '" data-list="' + list.listId + '">' +
-                        '<span class="en">' + escapeHtml(word.word) + "</span>" +
-                        '<span class="ipa">/' + escapeHtml(word.phonetic || "") + "/</span>" +
-                        '<span class="zh">' + escapeHtml(word.chinese || "") + "</span>";
-                    row.querySelector("input").addEventListener("change", function () {
+                    row.setAttribute("data-word-id", word.id);
+                    var checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.setAttribute("data-id", word.id);
+                    checkbox.setAttribute("data-list", list.listId);
+                    checkbox.addEventListener("change", function () {
+                        if (globalCompleting) {
+                            checkbox.checked = false;
+                            showError("有单词正在补全中，请等待完成后再选择");
+                            return;
+                        }
                         btnStart.classList.add("hidden");
                     });
+                    var enSpan = document.createElement("span");
+                    enSpan.className = "en";
+                    enSpan.textContent = word.word;
+                    var ipaSpan = document.createElement("span");
+                    ipaSpan.className = "ipa";
+                    ipaSpan.textContent = "/" + (word.phonetic || "") + "/";
+                    var zhSpan = document.createElement("span");
+                    zhSpan.className = "zh";
+                    zhSpan.textContent = word.chinese || "";
+                    var completeBtn = document.createElement("button");
+                    completeBtn.type = "button";
+                    completeBtn.className = "btn-complete";
+                    completeBtn.textContent = "补全";
+                    completeBtn.addEventListener("click", (function (wordItem, btn, ipaEl, zhEl) {
+                        return function () {
+                            if (globalCompleting) {
+                                return;
+                            }
+                            globalCompleting = true;
+                            catalogEl.querySelectorAll("input[data-id]").forEach(function (cb) {
+                                cb.disabled = true;
+                            });
+                            catalogEl.querySelectorAll(".btn-complete:not(.done)").forEach(function (b) {
+                                b.disabled = true;
+                            });
+                            btn.disabled = true;
+                            btn.textContent = "补全中…";
+                            api("/api/dictation/complete-word", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ id: wordItem.id, word: wordItem.word })
+                            }).then(function (res) {
+                                if (!res.ok) throw new Error(res.message || "补全失败");
+                                if (res.phonetic) ipaEl.textContent = "/" + res.phonetic + "/";
+                                if (res.chinese) zhEl.textContent = res.chinese;
+                                btn.textContent = "已补全";
+                                btn.classList.add("done");
+                            }).catch(function (err) {
+                                btn.textContent = "补全";
+                                showError(err.message);
+                            }).finally(function () {
+                                globalCompleting = false;
+                                reenableCheckboxIfReady();
+                            });
+                        };
+                    })(word, completeBtn, ipaSpan, zhSpan));
+                    row.appendChild(checkbox);
+                    row.appendChild(enSpan);
+                    row.appendChild(ipaSpan);
+                    row.appendChild(zhSpan);
+                    row.appendChild(completeBtn);
                     block.appendChild(row);
                 });
             });
             catalogEl.appendChild(block);
         });
+    }
+
+    function reenableCheckboxIfReady() {
+        var hasAnyCompleting = catalogEl.querySelector(".btn-complete:not(.done):not(:disabled)");
+        if (!hasAnyCompleting) {
+            catalogEl.querySelectorAll("input[data-id]").forEach(function (cb) {
+                cb.disabled = false;
+            });
+        } else {
+            catalogEl.querySelectorAll(".btn-complete:not(.done)").forEach(function (btn) {
+                btn.disabled = false;
+            });
+        }
     }
 
     function escapeHtml(text) {
@@ -194,7 +278,7 @@
                     } else {
                         speakStatus.textContent = "间隔 " + remaining + " 秒…";
                     }
-                }, 1000);
+                }, 1200);
             });
         }
 
@@ -235,6 +319,105 @@
         btnPrev.classList.toggle("hidden", first);
         btnNext.classList.toggle("hidden", last);
         btnFinish.classList.toggle("hidden", !last);
+        hintPhonetic.style.display = "none";
+        hintPhonetic.textContent = "";
+        hintChinese.style.display = "none";
+        hintChinese.textContent = "";
+        btnHintPhonetic.textContent = "显示音标";
+        btnHintPhonetic.classList.remove("active");
+        btnHintChinese.textContent = "显示中文";
+        btnHintChinese.classList.remove("active");
+    }
+
+    function renderInputArea() {
+        inputArea.innerHTML = "";
+        var current = practiceWords[index];
+        if (!current) return;
+        var words = current.word.split(/\s+/);
+        words.forEach(function (w, i) {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.className = "word-input";
+            input.placeholder = "第 " + (i + 1) + " 个单词";
+            input.setAttribute("data-index", i);
+            input.addEventListener("keydown", function (e) {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    if (index === practiceWords.length - 1) {
+                        btnFinish.click();
+                    } else {
+                        btnNext.click();
+                    }
+                }
+            });
+            inputArea.appendChild(input);
+        });
+    }
+
+    function getAnswers() {
+        var answers = [];
+        inputArea.querySelectorAll(".word-input").forEach(function (input) {
+            answers.push(input.value.trim());
+        });
+        return answers;
+    }
+
+    function saveCurrentAnswer() {
+        try {
+            var answers = getAnswers();
+            return api("/api/dictation/answer", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ clientId: clientId, index: index, answers: answers })
+            }).catch(function (err) {
+                console.warn("save answer failed:", err.message);
+            });
+        } catch (e) {
+            console.warn("save answer error:", e.message);
+            return Promise.resolve();
+        }
+    }
+
+    function loadAnswer(idx) {
+        return api("/api/dictation/answer?clientId=" + encodeURIComponent(clientId) + "&index=" + idx)
+            .then(function (parts) {
+                var inputs = inputArea.querySelectorAll(".word-input");
+                parts.forEach(function (val, i) {
+                    if (inputs[i]) {
+                        inputs[i].value = val;
+                    }
+                });
+            }).catch(function () {});
+    }
+
+    function toggleHint(type) {
+        var current = practiceWords[index];
+        if (!current) return;
+        if (type === "phonetic") {
+            if (hintPhonetic.style.display === "none") {
+                hintPhonetic.textContent = "/" + (current.phonetic || "") + "/";
+                hintPhonetic.style.display = "block";
+                btnHintPhonetic.textContent = "隐藏音标";
+                btnHintPhonetic.classList.add("active");
+            } else {
+                hintPhonetic.style.display = "none";
+                hintPhonetic.textContent = "";
+                btnHintPhonetic.textContent = "显示音标";
+                btnHintPhonetic.classList.remove("active");
+            }
+        } else {
+            if (hintChinese.style.display === "none") {
+                hintChinese.textContent = current.chinese || "";
+                hintChinese.style.display = "block";
+                btnHintChinese.textContent = "隐藏中文";
+                btnHintChinese.classList.add("active");
+            } else {
+                hintChinese.style.display = "none";
+                hintChinese.textContent = "";
+                btnHintChinese.textContent = "显示中文";
+                btnHintChinese.classList.remove("active");
+            }
+        }
     }
 
     function highlight(sentence, word) {
@@ -246,25 +429,99 @@
         return escapeHtml(sentence).replace(re, '<strong class="word-hl">$1</strong>');
     }
 
+    function buildAnswerHtml(correctWord, userAnswer) {
+        if (!userAnswer) {
+            return '<span class="answer-empty">（未填写）</span> <span class="answer-correct">→ ' + escapeHtml(correctWord) + '</span>';
+        }
+        var correctParts = correctWord.split(/\s+/);
+        var userParts = userAnswer.split(/\s+/).filter(function (p) { return p !== ""; });
+        var maxLen = Math.max(correctParts.length, userParts.length);
+        var html = "";
+        for (var i = 0; i < maxLen; i++) {
+            var cp = correctParts[i] || "";
+            var up = userParts[i] || "";
+            if (cp && up.toLowerCase() === cp.toLowerCase()) {
+                html += '<span class="answer-correct">' + escapeHtml(up) + '</span> ';
+            } else if (cp && up) {
+                html += '<span class="answer-wrong">' + escapeHtml(up) + '</span> ';
+            } else if (cp && !up) {
+                html += '<span class="answer-wrong">∅</span> ';
+            } else if (!cp && up) {
+                html += '<span class="answer-wrong">' + escapeHtml(up) + '</span> ';
+            }
+        }
+        html += ' <span class="answer-correct">→ ' + escapeHtml(correctWord) + '</span>';
+        return html;
+    }
+
     function renderReview(words) {
         reviewList.innerHTML = "";
         words.forEach(function (item, i) {
             var card = document.createElement("article");
             card.className = "review-card";
-            var examples = item.examples || [];
-            var e1 = examples[0] || { english: "", chinese: "" };
-            var e2 = examples[1] || { english: "", chinese: "" };
-            card.innerHTML =
-                '<div class="review-head">' +
+
+            var headDiv = document.createElement("div");
+            headDiv.className = "review-head";
+            headDiv.innerHTML =
                 "<span>" + (i + 1) + ".</span>" +
                 '<span class="en">' + escapeHtml(item.word) + "</span>" +
                 '<span class="ipa">/' + escapeHtml(item.phonetic || "") + "/</span>" +
-                "<span>" + escapeHtml(item.chinese || "") + "</span>" +
-                "</div>" +
-                '<div class="example"><div>' + highlight(e1.english, item.word) +
-                '</div><div class="zh">' + escapeHtml(e1.chinese || "") + "</div></div>" +
-                '<div class="example"><div>' + highlight(e2.english, item.word) +
-                '</div><div class="zh">' + escapeHtml(e2.chinese || "") + "</div></div>";
+                "<span>" + escapeHtml(item.chinese || "") + "</span>";
+            card.appendChild(headDiv);
+
+            var answerDiv = document.createElement("div");
+            answerDiv.className = "answer-row";
+            answerDiv.innerHTML =
+                '<span class="answer-label">你的答案：</span>' +
+                buildAnswerHtml(item.word, item.answer || "");
+            card.appendChild(answerDiv);
+
+            var toggleBtn = document.createElement("button");
+            toggleBtn.type = "button";
+            toggleBtn.className = "example-toggle";
+            toggleBtn.textContent = "显示例句";
+            toggleBtn.setAttribute("data-index", i);
+            toggleBtn.setAttribute("data-loaded", "false");
+            card.appendChild(toggleBtn);
+
+            var exampleDiv = document.createElement("div");
+            exampleDiv.className = "example-section hidden";
+            exampleDiv.setAttribute("data-index", i);
+            card.appendChild(exampleDiv);
+
+            toggleBtn.addEventListener("click", (function (btn, section, wordItem, idx) {
+                return function () {
+                    if (section.classList.contains("hidden")) {
+                        section.classList.remove("hidden");
+                        btn.textContent = "隐藏例句";
+                        if (btn.getAttribute("data-loaded") !== "true") {
+                            section.innerHTML = '<p class="example-loading">正在加载例句…</p>';
+                            api("/api/dictation/examples?clientId=" + encodeURIComponent(clientId) + "&index=" + idx)
+                                .then(function (examples) {
+                                    section.innerHTML = "";
+                                    (examples || []).forEach(function (ex) {
+                                        var div = document.createElement("div");
+                                        div.className = "example";
+                                        div.innerHTML =
+                                            "<div>" + highlight(ex.english, wordItem.word) + "</div>" +
+                                            '<div class="zh">' + escapeHtml(ex.chinese || "") + "</div>";
+                                        section.appendChild(div);
+                                    });
+                                    if (!examples || examples.length === 0) {
+                                        section.innerHTML = '<p class="hint">暂无例句</p>';
+                                    }
+                                    btn.setAttribute("data-loaded", "true");
+                                }).catch(function (err) {
+                                    section.innerHTML = '<p class="hint">加载失败：' + escapeHtml(err.message) + '</p>';
+                                });
+                        }
+                    } else {
+                        section.classList.add("hidden");
+                        btn.textContent = "显示例句";
+                    }
+                };
+            })(toggleBtn, exampleDiv, item, i));
+
             reviewList.appendChild(card);
         });
     }
@@ -302,6 +559,7 @@
             index = 0;
             showView("practice");
             renderPractice();
+            renderInputArea();
         }).catch(function (err) {
             showError(err.message);
         });
@@ -311,8 +569,11 @@
         if (speaking || index <= 0) {
             return;
         }
+        saveCurrentAnswer();
         index -= 1;
         renderPractice();
+        renderInputArea();
+        loadAnswer(index);
         speakStatus.textContent = "";
     });
 
@@ -320,8 +581,11 @@
         if (speaking || index >= practiceWords.length - 1) {
             return;
         }
+        saveCurrentAnswer();
         index += 1;
         renderPractice();
+        renderInputArea();
+        loadAnswer(index);
         speakStatus.textContent = "";
     });
 
@@ -333,20 +597,33 @@
         speakThreeTimes(current.word);
     });
 
+    btnHintPhonetic.addEventListener("click", function () {
+        toggleHint("phonetic");
+    });
+
+    btnHintChinese.addEventListener("click", function () {
+        toggleHint("chinese");
+    });
+
     btnFinish.addEventListener("click", function () {
         if (speaking) {
             return;
         }
         showError("");
-        showView("review");
-        reviewStatus.textContent = "正在加载例句与翻译，请稍候…";
-        reviewList.innerHTML = "";
-        api("/api/dictation/review?clientId=" + encodeURIComponent(clientId)).then(function (body) {
+        btnFinish.disabled = true;
+        saveCurrentAnswer().then(function () {
+            showView("review");
+            reviewStatus.textContent = "正在加载听写结果，请稍候…";
+            reviewList.innerHTML = "";
+            return api("/api/dictation/review?clientId=" + encodeURIComponent(clientId));
+        }).then(function (body) {
             reviewStatus.textContent = "按听写时的乱序展示，共 " + body.total + " 个单词";
             renderReview(body.words || []);
         }).catch(function (err) {
             showError(err.message);
             reviewStatus.textContent = "";
+        }).then(function () {
+            btnFinish.disabled = false;
         });
     });
 

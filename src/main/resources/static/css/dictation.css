@@ -154,7 +154,7 @@ button.linkish {
 
 .word-row {
     display: grid;
-    grid-template-columns: 28px 1.2fr 1fr 1.4fr;
+    grid-template-columns: 28px 1.2fr 1fr 1.4fr auto;
     gap: 8px;
     padding: 6px 4px;
     border-top: 1px solid #323846;
@@ -163,6 +163,53 @@ button.linkish {
 
 .word-row .en { font-weight: 600; }
 .word-row .ipa { color: var(--muted); }
+
+.btn-complete {
+    background: #2d4a3e;
+    color: #8fdfb0;
+    border: 1px solid #3a6b55;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.btn-complete:hover {
+    background: #3a6b55;
+}
+
+.btn-complete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-complete.done {
+    background: #1e3a2e;
+    color: #5cb87a;
+    border-color: #2d5442;
+}
+
+.btn-batch-complete {
+    background: #2d4a3e;
+    color: #8fdfb0;
+    border: 1px solid #3a6b55;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-batch-complete:hover {
+    background: #3a6b55;
+}
+
+.btn-batch-complete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 .review-card {
     background: var(--panel);
@@ -199,9 +246,122 @@ button.linkish {
 
 @media (max-width: 700px) {
     .word-row {
-        grid-template-columns: 28px 1fr;
+        grid-template-columns: 28px 1fr auto;
     }
     .word-row .ipa, .word-row .zh {
         grid-column: 2;
+    }
+    .word-row .btn-complete {
+        grid-column: 3;
+        grid-row: 1;
+    }
+}
+
+.input-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.input-area input {
+    background: transparent;
+    color: var(--text);
+    border: none;
+    border-bottom: 2px solid #4a5260;
+    border-radius: 0;
+    padding: 8px 4px;
+    font-size: 1.2rem;
+    width: 200px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.input-area input:focus {
+    border-bottom-color: var(--accent);
+    box-shadow: 0 2px 0 0 var(--accent);
+}
+
+.hint-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 12px 0;
+}
+
+.hint-btn {
+    background: #2d3440;
+    color: var(--muted);
+    border: 1px solid #4a5260;
+    font-size: 0.9rem;
+}
+
+.hint-btn.active {
+    background: var(--accent);
+    color: #1b1e24;
+    border-color: var(--accent);
+}
+
+.hint-content {
+    text-align: center;
+    font-size: 1.15rem;
+    margin: 8px 0;
+    color: var(--accent);
+}
+
+.answer-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.answer-label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    min-width: 70px;
+}
+
+.answer-correct {
+    color: var(--ok);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.answer-wrong {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--danger);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.answer-empty {
+    color: var(--muted);
+    font-style: italic;
+}
+
+.example-toggle {
+    margin-top: 10px;
+}
+
+.example-section {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #323846;
+}
+
+.example-loading {
+    color: var(--muted);
+    font-style: italic;
+    padding: 8px 0;
+}
+
+@media (max-width: 700px) {
+    .input-area input {
+        width: 100%;
     }
 }
